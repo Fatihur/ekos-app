@@ -9,7 +9,7 @@
         <!-- Background Image with Overlay -->
         <div class="position-absolute w-100 h-100" 
              style="background: linear-gradient(rgba(0, 185, 142, 0.8), rgba(0, 185, 142, 0.8)), 
-                    url('{{ asset('landing-page/img/carousel-1.jpg') }}') center center no-repeat; 
+                    url('{{ asset('landing-page/img/kos.jpg') }}') center center no-repeat; 
                     background-size: cover;">
         </div>
         
@@ -123,29 +123,7 @@
         </div>
         
         <div class="row g-4">
-            <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-                <div class="bg-white rounded p-4 h-100 shadow-sm">
-                    <div class="d-flex align-items-center mb-3">
-                        <div class="flex-shrink-0 btn-square bg-primary rounded-circle me-3" style="width: 60px; height: 60px;">
-                            <i class="fa fa-map-marker-alt fa-2x text-white"></i>
-                        </div>
-                        <h5 class="mb-0">Khusus Batu Alang</h5>
-                    </div>
-                    <p class="mb-0">Platform khusus untuk kos di Batu Alang, memudahkan Anda menemukan kos yang sesuai dengan kebutuhan di area ini.</p>
-                </div>
-            </div>
             
-            <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.2s">
-                <div class="bg-white rounded p-4 h-100 shadow-sm">
-                    <div class="d-flex align-items-center mb-3">
-                        <div class="flex-shrink-0 btn-square bg-primary rounded-circle me-3" style="width: 60px; height: 60px;">
-                            <i class="fa fa-search fa-2x text-white"></i>
-                        </div>
-                        <h5 class="mb-0">Mudah Dicari</h5>
-                    </div>
-                    <p class="mb-0">Temukan kos impian di Batu Alang dengan mudah menggunakan filter lokasi, harga, fasilitas, dan jenis kos.</p>
-                </div>
-            </div>
             
             <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
                 <div class="bg-white rounded p-4 h-100 shadow-sm">
@@ -183,17 +161,7 @@
                 </div>
             </div>
             
-            <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.6s">
-                <div class="bg-white rounded p-4 h-100 shadow-sm">
-                    <div class="d-flex align-items-center mb-3">
-                        <div class="flex-shrink-0 btn-square bg-primary rounded-circle me-3" style="width: 60px; height: 60px;">
-                            <i class="fa fa-shield-alt fa-2x text-white"></i>
-                        </div>
-                        <h5 class="mb-0">Terpercaya</h5>
-                    </div>
-                    <p class="mb-0">Semua kos terverifikasi dengan sistem rating dan ulasan dari penghuni sebelumnya untuk memastikan kualitas.</p>
-                </div>
-            </div>
+            
         </div>
     </div>
 </div>
