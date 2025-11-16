@@ -4,64 +4,194 @@
 
 @section('content')
 <!-- Hero Start -->
-<div class="container-fluid bg-primary hero-header mb-5">
-    <div class="container text-center">
-        <h1 class="display-4 text-white mb-3 animated slideInDown">Temukan Kos Impian Anda</h1>
-        <p class="fs-5 fw-medium text-white mb-4 pb-3">Platform terpercaya untuk mencari dan mengelola kos di Batu Alang</p>
+<div class="container-fluid p-0 mb-5 wow fadeIn" data-wow-delay="0.1s">
+    <div class="position-relative" style="min-height: 500px;">
+        <!-- Background Image with Overlay -->
+        <div class="position-absolute w-100 h-100" 
+             style="background: linear-gradient(rgba(0, 185, 142, 0.8), rgba(0, 185, 142, 0.8)), 
+                    url('{{ asset('landing-page/img/carousel-1.jpg') }}') center center no-repeat; 
+                    background-size: cover;">
+        </div>
         
-        <!-- Search Form -->
-        <form action="{{ route('pencarian') }}" method="GET">
-            <div class="position-relative w-75 mx-auto animated slideInDown">
-                <div class="input-group">
-                    <input class="form-control border-0 rounded-pill w-100 ps-4 pe-5" type="text" 
-                           name="kata_kunci" placeholder="Cari kos berdasarkan nama atau lokasi..." 
-                           style="height: 58px;">
-                    <button type="submit" class="btn btn-primary rounded-pill px-4 position-absolute top-0 end-0 mt-2 me-2">
-                        <i class="fa fa-search"></i> Cari
-                    </button>
+        <!-- Hero Content -->
+        <div class="container position-relative" style="padding: 100px 0;">
+            <div class="row justify-content-center">
+                <div class="col-lg-10 text-center">
+                    <h1 class="display-3 text-white mb-4 animated slideInDown">
+                        Temukan Kos Impian Anda
+                    </h1>
+                    <p class="fs-5 text-white mb-5 animated slideInDown">
+                        Platform terpercaya untuk mencari dan mengelola kos dengan mudah dan aman
+                    </p>
+                    
+                    <!-- Search Form -->
+                    <form action="{{ route('pencarian') }}" method="GET" class="animated slideInUp">
+                        <div class="row g-3 justify-content-center">
+                            <div class="col-lg-8">
+                                <div class="bg-white rounded-pill p-2 shadow-lg">
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-transparent border-0 ps-4">
+                                            <i class="fa fa-search text-primary"></i>
+                                        </span>
+                                        <input class="form-control border-0 rounded-pill" 
+                                               type="text" 
+                                               name="kata_kunci" 
+                                               placeholder="Cari berdasarkan nama kos atau lokasi..." 
+                                               style="height: 50px;">
+                                        <button type="submit" 
+                                                class="btn btn-primary rounded-pill px-4 me-1" 
+                                                style="height: 50px;">
+                                            Cari Sekarang
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Quick Filters -->
+                        <div class="row g-2 justify-content-center mt-3">
+                            <div class="col-auto">
+                                <a href="{{ route('pencarian', ['jenis_kos' => 'putra']) }}" 
+                                   class="btn btn-light btn-sm rounded-pill px-3">
+                                    <i class="fa fa-male me-1"></i> Kos Putra
+                                </a>
+                            </div>
+                            <div class="col-auto">
+                                <a href="{{ route('pencarian', ['jenis_kos' => 'putri']) }}" 
+                                   class="btn btn-light btn-sm rounded-pill px-3">
+                                    <i class="fa fa-female me-1"></i> Kos Putri
+                                </a>
+                            </div>
+                            <div class="col-auto">
+                                <a href="{{ route('pencarian', ['jenis_kos' => 'campur']) }}" 
+                                   class="btn btn-light btn-sm rounded-pill px-3">
+                                    <i class="fa fa-users me-1"></i> Kos Campur
+                                </a>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
-        </form>
+        </div>
     </div>
 </div>
 <!-- Hero End -->
 
-<!-- Features Start -->
+<!-- Stats Start -->
 <div class="container-xxl py-5">
     <div class="container">
-        <div class="row g-5 align-items-center">
-            <div class="col-lg-12 wow fadeInUp" data-wow-delay="0.1s">
-                <div class="section-title mb-4">
-                    <h1 class="display-6 mb-4">Kenapa Memilih E-Kos?</h1>
+        <div class="row g-4">
+            <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                <div class="bg-light rounded text-center p-4">
+                    <i class="fa fa-home fa-3x text-primary mb-3"></i>
+                    <h2 class="mb-2">{{ \App\Models\Kos::count() }}+</h2>
+                    <p class="mb-0">Kos Tersedia</p>
                 </div>
-                <div class="row g-3">
-                    <div class="col-md-4">
-                        <div class="bg-light p-4 rounded">
-                            <div class="d-flex align-items-center mb-2">
-                                <i class="fa fa-search fa-2x text-primary me-3"></i>
-                                <h5 class="mb-0">Mudah Dicari</h5>
-                            </div>
-                            <p class="mb-0">Temukan kos dengan mudah menggunakan filter lokasi, harga, dan fasilitas.</p>
+            </div>
+            <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.2s">
+                <div class="bg-light rounded text-center p-4">
+                    <i class="fa fa-users fa-3x text-primary mb-3"></i>
+                    <h2 class="mb-2">{{ \App\Models\Pengguna::where('peran', 'pencari_kos')->count() }}+</h2>
+                    <p class="mb-0">Pencari Kos</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
+                <div class="bg-light rounded text-center p-4">
+                    <i class="fa fa-calendar-check fa-3x text-primary mb-3"></i>
+                    <h2 class="mb-2">{{ \App\Models\Pemesanan::count() }}+</h2>
+                    <p class="mb-0">Pemesanan</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.4s">
+                <div class="bg-light rounded text-center p-4">
+                    <i class="fa fa-star fa-3x text-primary mb-3"></i>
+                    <h2 class="mb-2">{{ \App\Models\Ulasan::count() }}+</h2>
+                    <p class="mb-0">Ulasan</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Stats End -->
+
+<!-- Features Start -->
+<div class="container-xxl py-5 bg-light">
+    <div class="container">
+        <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
+            <h1 class="display-6 mb-3">Kenapa Memilih E-Kos?</h1>
+            <p class="text-muted">Platform terbaik untuk mencari dan mengelola kos dengan berbagai keunggulan</p>
+        </div>
+        
+        <div class="row g-4">
+            <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                <div class="bg-white rounded p-4 h-100 shadow-sm">
+                    <div class="d-flex align-items-center mb-3">
+                        <div class="flex-shrink-0 btn-square bg-primary rounded-circle me-3" style="width: 60px; height: 60px;">
+                            <i class="fa fa-search fa-2x text-white"></i>
                         </div>
+                        <h5 class="mb-0">Mudah Dicari</h5>
                     </div>
-                    <div class="col-md-4">
-                        <div class="bg-light p-4 rounded">
-                            <div class="d-flex align-items-center mb-2">
-                                <i class="fa fa-shield-alt fa-2x text-primary me-3"></i>
-                                <h5 class="mb-0">Terpercaya</h5>
-                            </div>
-                            <p class="mb-0">Semua kos terverifikasi dengan sistem rating dan ulasan dari penghuni.</p>
+                    <p class="mb-0">Temukan kos impian dengan mudah menggunakan filter lokasi, harga, fasilitas, dan jenis kos yang Anda inginkan.</p>
+                </div>
+            </div>
+            
+            <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.2s">
+                <div class="bg-white rounded p-4 h-100 shadow-sm">
+                    <div class="d-flex align-items-center mb-3">
+                        <div class="flex-shrink-0 btn-square bg-primary rounded-circle me-3" style="width: 60px; height: 60px;">
+                            <i class="fa fa-shield-alt fa-2x text-white"></i>
                         </div>
+                        <h5 class="mb-0">Terpercaya</h5>
                     </div>
-                    <div class="col-md-4">
-                        <div class="bg-light p-4 rounded">
-                            <div class="d-flex align-items-center mb-2">
-                                <i class="fa fa-calendar-check fa-2x text-primary me-3"></i>
-                                <h5 class="mb-0">Booking Online</h5>
-                            </div>
-                            <p class="mb-0">Pesan kos secara online dengan proses yang cepat dan aman.</p>
+                    <p class="mb-0">Semua kos terverifikasi dengan sistem rating dan ulasan dari penghuni sebelumnya untuk memastikan kualitas.</p>
+                </div>
+            </div>
+            
+            <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
+                <div class="bg-white rounded p-4 h-100 shadow-sm">
+                    <div class="d-flex align-items-center mb-3">
+                        <div class="flex-shrink-0 btn-square bg-primary rounded-circle me-3" style="width: 60px; height: 60px;">
+                            <i class="fa fa-calendar-check fa-2x text-white"></i>
                         </div>
+                        <h5 class="mb-0">Booking Online</h5>
                     </div>
+                    <p class="mb-0">Pesan kos secara online dengan proses yang cepat, mudah, dan aman tanpa perlu datang langsung.</p>
+                </div>
+            </div>
+            
+            <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.4s">
+                <div class="bg-white rounded p-4 h-100 shadow-sm">
+                    <div class="d-flex align-items-center mb-3">
+                        <div class="flex-shrink-0 btn-square bg-primary rounded-circle me-3" style="width: 60px; height: 60px;">
+                            <i class="fa fa-credit-card fa-2x text-white"></i>
+                        </div>
+                        <h5 class="mb-0">Pembayaran Mudah</h5>
+                    </div>
+                    <p class="mb-0">Upload bukti pembayaran dengan mudah dan dapatkan verifikasi cepat dari pemilik kos.</p>
+                </div>
+            </div>
+            
+            <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
+                <div class="bg-white rounded p-4 h-100 shadow-sm">
+                    <div class="d-flex align-items-center mb-3">
+                        <div class="flex-shrink-0 btn-square bg-primary rounded-circle me-3" style="width: 60px; height: 60px;">
+                            <i class="fa fa-heart fa-2x text-white"></i>
+                        </div>
+                        <h5 class="mb-0">Simpan Favorit</h5>
+                    </div>
+                    <p class="mb-0">Simpan kos favorit Anda dan akses kapan saja untuk memudahkan perbandingan dan keputusan.</p>
+                </div>
+            </div>
+            
+            <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.6s">
+                <div class="bg-white rounded p-4 h-100 shadow-sm">
+                    <div class="d-flex align-items-center mb-3">
+                        <div class="flex-shrink-0 btn-square bg-primary rounded-circle me-3" style="width: 60px; height: 60px;">
+                            <i class="fa fa-headset fa-2x text-white"></i>
+                        </div>
+                        <h5 class="mb-0">Dukungan 24/7</h5>
+                    </div>
+                    <p class="mb-0">Tim support kami siap membantu Anda kapan saja untuk memastikan pengalaman terbaik.</p>
                 </div>
             </div>
         </div>
@@ -72,9 +202,9 @@
 <!-- Kos Terbaru Start -->
 <div class="container-xxl py-5">
     <div class="container">
-        <div class="section-title text-center mb-5 wow fadeInUp" data-wow-delay="0.1s">
-            <h1 class="display-6 mb-4">Kos Terbaru</h1>
-            <p>Pilihan kos terbaru yang baru saja ditambahkan</p>
+        <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
+            <h1 class="display-6 mb-3">Kos Terbaru</h1>
+            <p class="text-muted">Pilihan kos terbaru yang baru saja ditambahkan ke platform kami</p>
         </div>
         
         @if($kosTerbaru->count() > 0)
@@ -130,9 +260,9 @@
             </div>
         @endif
         
-        <div class="text-center mt-4">
-            <a href="{{ route('pencarian') }}" class="btn btn-primary rounded-pill px-5 py-3">
-                Lihat Semua Kos <i class="fa fa-arrow-right ms-2"></i>
+        <div class="text-center mt-5 wow fadeInUp" data-wow-delay="0.1s">
+            <a href="{{ route('pencarian') }}" class="btn btn-primary rounded-pill px-5 py-3 shadow">
+                <i class="fa fa-search me-2"></i>Lihat Semua Kos
             </a>
         </div>
     </div>
@@ -142,9 +272,9 @@
 <!-- Kos Populer Start -->
 <div class="container-xxl py-5 bg-light">
     <div class="container">
-        <div class="section-title text-center mb-5 wow fadeInUp" data-wow-delay="0.1s">
-            <h1 class="display-6 mb-4">Kos Populer</h1>
-            <p>Kos dengan pemesanan terbanyak</p>
+        <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
+            <h1 class="display-6 mb-3">Kos Populer</h1>
+            <p class="text-muted">Kos dengan rating terbaik dan pemesanan terbanyak dari pengguna kami</p>
         </div>
         
         @if($kosPopuler->count() > 0)
@@ -226,23 +356,50 @@
 <!-- Call To Action Start -->
 <div class="container-xxl py-5">
     <div class="container">
-        <div class="row g-5">
-            <div class="col-lg-6 wow fadeIn" data-wow-delay="0.1s">
-                <div class="bg-primary text-white p-5 rounded">
-                    <h2 class="text-white mb-4">Punya Kos?</h2>
-                    <p class="mb-4">Daftarkan kos Anda di E-Kos dan dapatkan lebih banyak penyewa. Proses mudah dan cepat!</p>
-                    <a href="{{ route('register') }}" class="btn btn-light rounded-pill px-5 py-3">
-                        Daftar Sebagai Pemilik <i class="fa fa-arrow-right ms-2"></i>
-                    </a>
+        <div class="row g-4">
+            <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s">
+                <div class="position-relative h-100 rounded overflow-hidden shadow">
+                    <div class="position-absolute w-100 h-100" 
+                         style="background: linear-gradient(rgba(0, 185, 142, 0.9), rgba(0, 185, 142, 0.9));">
+                    </div>
+                    <div class="position-relative p-5 text-white">
+                        <div class="mb-4">
+                            <i class="fa fa-building fa-4x"></i>
+                        </div>
+                        <h2 class="text-white mb-3">Punya Kos?</h2>
+                        <p class="mb-4 pb-2">Daftarkan kos Anda di E-Kos dan dapatkan lebih banyak penyewa. Proses mudah, cepat, dan gratis!</p>
+                        <ul class="list-unstyled mb-4">
+                            <li class="mb-2"><i class="fa fa-check-circle me-2"></i>Gratis mendaftarkan kos</li>
+                            <li class="mb-2"><i class="fa fa-check-circle me-2"></i>Jangkauan lebih luas</li>
+                            <li class="mb-2"><i class="fa fa-check-circle me-2"></i>Kelola pemesanan online</li>
+                        </ul>
+                        <a href="{{ route('register') }}" class="btn btn-light rounded-pill px-4 py-3">
+                            <i class="fa fa-user-plus me-2"></i>Daftar Sebagai Pemilik
+                        </a>
+                    </div>
                 </div>
             </div>
-            <div class="col-lg-6 wow fadeIn" data-wow-delay="0.3s">
-                <div class="bg-light p-5 rounded">
-                    <h2 class="mb-4">Cari Kos?</h2>
-                    <p class="mb-4">Temukan kos impian Anda dengan mudah. Daftar sekarang dan nikmati fitur pencarian lengkap!</p>
-                    <a href="{{ route('register') }}" class="btn btn-primary rounded-pill px-5 py-3">
-                        Daftar Sebagai Pencari <i class="fa fa-arrow-right ms-2"></i>
-                    </a>
+            
+            <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.3s">
+                <div class="position-relative h-100 rounded overflow-hidden shadow">
+                    <div class="position-absolute w-100 h-100" 
+                         style="background: linear-gradient(rgba(25, 28, 36, 0.9), rgba(25, 28, 36, 0.9));">
+                    </div>
+                    <div class="position-relative p-5 text-white">
+                        <div class="mb-4">
+                            <i class="fa fa-search fa-4x"></i>
+                        </div>
+                        <h2 class="text-white mb-3">Cari Kos?</h2>
+                        <p class="mb-4 pb-2">Temukan kos impian Anda dengan mudah. Daftar sekarang dan nikmati berbagai fitur lengkap!</p>
+                        <ul class="list-unstyled mb-4">
+                            <li class="mb-2"><i class="fa fa-check-circle me-2"></i>Pencarian mudah dan cepat</li>
+                            <li class="mb-2"><i class="fa fa-check-circle me-2"></i>Booking online praktis</li>
+                            <li class="mb-2"><i class="fa fa-check-circle me-2"></i>Simpan kos favorit</li>
+                        </ul>
+                        <a href="{{ route('register') }}" class="btn btn-primary rounded-pill px-4 py-3">
+                            <i class="fa fa-user-plus me-2"></i>Daftar Sebagai Pencari
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
