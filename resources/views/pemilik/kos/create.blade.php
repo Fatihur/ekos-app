@@ -117,6 +117,20 @@
                 </div>
 
                 <div class="mb-3">
+                    <label class="form-label">Link Google Maps <small class="text-muted">(Opsional)</small></label>
+                    <input type="url" name="google_maps_link" class="form-control @error('google_maps_link') is-invalid @enderror" 
+                           value="{{ old('google_maps_link') }}" 
+                           placeholder="https://maps.google.com/...">
+                    @error('google_maps_link')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                    <small class="text-muted">
+                        <i class="fa fa-info-circle me-1"></i>
+                        Buka Google Maps, cari lokasi kos, klik "Bagikan" lalu salin link
+                    </small>
+                </div>
+
+                <div class="mb-3">
                     <label class="form-label">Peraturan Kos</label>
                     <textarea name="peraturan" id="peraturan" class="form-control @error('peraturan') is-invalid @enderror" rows="5">{{ old('peraturan') }}</textarea>
                     @error('peraturan')

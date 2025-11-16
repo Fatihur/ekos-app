@@ -61,6 +61,38 @@
                 </div>
                 @endif
 
+                <!-- Lokasi -->
+                <div class="mb-4">
+                    <h5>Lokasi</h5>
+                    <div class="bg-light rounded p-3">
+                        <p class="mb-2">
+                            <i class="fa fa-map-marker-alt text-primary me-2"></i>
+                            <strong>{{ $kos->alamat }}</strong>
+                        </p>
+                        <p class="mb-3 text-muted">
+                            {{ $kos->kota }}, {{ $kos->provinsi }}
+                            @if($kos->kode_pos)
+                                {{ $kos->kode_pos }}
+                            @endif
+                        </p>
+                        
+                        @if($kos->google_maps_link)
+                            <a href="{{ $kos->google_maps_link }}" target="_blank" class="btn btn-primary btn-sm">
+                                <i class="fa fa-map-marked-alt me-2"></i>Buka di Google Maps
+                            </a>
+                            <small class="d-block mt-2 text-muted">
+                                <i class="fa fa-info-circle me-1"></i>Klik tombol di atas untuk melihat lokasi di Google Maps
+                            </small>
+                        @else
+                            <a href="https://www.google.com/maps/search/?api=1&query={{ urlencode($kos->alamat . ', ' . $kos->kota . ', ' . $kos->provinsi) }}" 
+                               target="_blank" 
+                               class="btn btn-outline-primary btn-sm">
+                                <i class="fa fa-search me-2"></i>Cari Lokasi di Google Maps
+                            </a>
+                        @endif
+                    </div>
+                </div>
+
                 <!-- Ulasan -->
                 @if($kos->ulasan->count() > 0)
                 <div class="mb-4">

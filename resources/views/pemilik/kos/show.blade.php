@@ -67,6 +67,15 @@
                         </div>
                     </div>
                     @endif
+
+                    @if($ko->google_maps_link)
+                    <div class="mb-3">
+                        <h6>Lokasi Google Maps</h6>
+                        <a href="{{ $ko->google_maps_link }}" target="_blank" class="btn btn-outline-primary btn-sm mb-2">
+                            <i class="fa fa-map-marked-alt me-2"></i>Buka di Google Maps
+                        </a>
+                    </div>
+                    @endif
                 </div>
 
                 <div class="col-md-4">

@@ -18,10 +18,10 @@ class DatabaseSeeder extends Seeder
         $this->call([
             PenggunaSeeder::class,
             FasilitasSeeder::class,
-            KosSeeder::class,
-            PemesananSeeder::class,
-            UlasanSeeder::class,
-            BookmarkSeeder::class,
+            // KosSeeder::class,
+            // PemesananSeeder::class,
+            // UlasanSeeder::class,
+            // BookmarkSeeder::class,
         ]);
     }
 }

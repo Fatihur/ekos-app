@@ -22,6 +22,7 @@ class Kos extends Model
         'jumlah_kamar',
         'kamar_tersedia',
         'alamat',
+        'google_maps_link',
         'kota',
         'provinsi',
         'kode_pos',

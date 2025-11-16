@@ -18,10 +18,10 @@
             <div class="row justify-content-center">
                 <div class="col-lg-10 text-center">
                     <h1 class="display-3 text-white mb-4 animated slideInDown">
-                        Temukan Kos Impian Anda
+                        Temukan Kos Impian Anda di Batu Alang
                     </h1>
                     <p class="fs-5 text-white mb-5 animated slideInDown">
-                        Platform terpercaya untuk mencari dan mengelola kos dengan mudah dan aman
+                        Platform terpercaya untuk mencari dan mengelola kos di Batu Alang dengan mudah dan aman
                     </p>
                     
                     <!-- Search Form -->
@@ -119,7 +119,7 @@
     <div class="container">
         <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
             <h1 class="display-6 mb-3">Kenapa Memilih E-Kos?</h1>
-            <p class="text-muted">Platform terbaik untuk mencari dan mengelola kos dengan berbagai keunggulan</p>
+            <p class="text-muted">Platform terbaik untuk mencari dan mengelola kos di Batu Alang dengan berbagai keunggulan</p>
         </div>
         
         <div class="row g-4">
@@ -127,11 +127,11 @@
                 <div class="bg-white rounded p-4 h-100 shadow-sm">
                     <div class="d-flex align-items-center mb-3">
                         <div class="flex-shrink-0 btn-square bg-primary rounded-circle me-3" style="width: 60px; height: 60px;">
-                            <i class="fa fa-search fa-2x text-white"></i>
+                            <i class="fa fa-map-marker-alt fa-2x text-white"></i>
                         </div>
-                        <h5 class="mb-0">Mudah Dicari</h5>
+                        <h5 class="mb-0">Khusus Batu Alang</h5>
                     </div>
-                    <p class="mb-0">Temukan kos impian dengan mudah menggunakan filter lokasi, harga, fasilitas, dan jenis kos yang Anda inginkan.</p>
+                    <p class="mb-0">Platform khusus untuk kos di Batu Alang, memudahkan Anda menemukan kos yang sesuai dengan kebutuhan di area ini.</p>
                 </div>
             </div>
             
@@ -139,11 +139,11 @@
                 <div class="bg-white rounded p-4 h-100 shadow-sm">
                     <div class="d-flex align-items-center mb-3">
                         <div class="flex-shrink-0 btn-square bg-primary rounded-circle me-3" style="width: 60px; height: 60px;">
-                            <i class="fa fa-shield-alt fa-2x text-white"></i>
+                            <i class="fa fa-search fa-2x text-white"></i>
                         </div>
-                        <h5 class="mb-0">Terpercaya</h5>
+                        <h5 class="mb-0">Mudah Dicari</h5>
                     </div>
-                    <p class="mb-0">Semua kos terverifikasi dengan sistem rating dan ulasan dari penghuni sebelumnya untuk memastikan kualitas.</p>
+                    <p class="mb-0">Temukan kos impian di Batu Alang dengan mudah menggunakan filter lokasi, harga, fasilitas, dan jenis kos.</p>
                 </div>
             </div>
             
@@ -187,11 +187,11 @@
                 <div class="bg-white rounded p-4 h-100 shadow-sm">
                     <div class="d-flex align-items-center mb-3">
                         <div class="flex-shrink-0 btn-square bg-primary rounded-circle me-3" style="width: 60px; height: 60px;">
-                            <i class="fa fa-headset fa-2x text-white"></i>
+                            <i class="fa fa-shield-alt fa-2x text-white"></i>
                         </div>
-                        <h5 class="mb-0">Dukungan 24/7</h5>
+                        <h5 class="mb-0">Terpercaya</h5>
                     </div>
-                    <p class="mb-0">Tim support kami siap membantu Anda kapan saja untuk memastikan pengalaman terbaik.</p>
+                    <p class="mb-0">Semua kos terverifikasi dengan sistem rating dan ulasan dari penghuni sebelumnya untuk memastikan kualitas.</p>
                 </div>
             </div>
         </div>
@@ -203,8 +203,8 @@
 <div class="container-xxl py-5">
     <div class="container">
         <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
-            <h1 class="display-6 mb-3">Kos Terbaru</h1>
-            <p class="text-muted">Pilihan kos terbaru yang baru saja ditambahkan ke platform kami</p>
+            <h1 class="display-6 mb-3">Kos Terbaru di Batu Alang</h1>
+            <p class="text-muted">Pilihan kos terbaru di Batu Alang yang baru saja ditambahkan ke platform kami</p>
         </div>
         
         @if($kosTerbaru->count() > 0)
@@ -273,8 +273,8 @@
 <div class="container-xxl py-5 bg-light">
     <div class="container">
         <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
-            <h1 class="display-6 mb-3">Kos Populer</h1>
-            <p class="text-muted">Kos dengan rating terbaik dan pemesanan terbanyak dari pengguna kami</p>
+            <h1 class="display-6 mb-3">Kos Populer di Batu Alang</h1>
+            <p class="text-muted">Kos terpopuler di Batu Alang dengan rating terbaik dan pemesanan terbanyak</p>
         </div>
         
         @if($kosPopuler->count() > 0)
