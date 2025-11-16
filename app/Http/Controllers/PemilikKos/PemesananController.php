@@ -5,6 +5,7 @@ namespace App\Http\Controllers\PemilikKos;
 use App\Http\Controllers\Controller;
 use App\Models\Pemesanan;
 use App\Models\Kos;
+use App\Models\Notifikasi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -75,6 +76,15 @@ class PemesananController extends Controller
         // Kurangi kamar tersedia
         $pemesanan->kos->decrement('kamar_tersedia');
 
+        // Kirim notifikasi ke pencari
+        Notifikasi::kirim(
+            $pemesanan->pencari_id,
+            'Pemesanan Disetujui',
+            "Pemesanan Anda untuk {$pemesanan->kos->nama_kos} telah disetujui. Silakan lakukan pembayaran.",
+            'success',
+            route('pencari.pemesanan.show', $pemesanan->id)
+        );
+
         return back()->with('success', 'Pemesanan berhasil disetujui!');
     }
 
@@ -102,6 +112,15 @@ class PemesananController extends Controller
             'status' => 'ditolak',
             'alasan_penolakan' => $request->alasan_penolakan,
         ]);
+
+        // Kirim notifikasi ke pencari
+        Notifikasi::kirim(
+            $pemesanan->pencari_id,
+            'Pemesanan Ditolak',
+            "Pemesanan Anda untuk {$pemesanan->kos->nama_kos} ditolak. Alasan: {$request->alasan_penolakan}",
+            'danger',
+            route('pencari.pemesanan.show', $pemesanan->id)
+        );
 
         return back()->with('success', 'Pemesanan berhasil ditolak.');
     }
@@ -139,6 +158,15 @@ class PemesananController extends Controller
         $pemesanan->update([
             'status' => 'aktif',
         ]);
+
+        // Kirim notifikasi ke pencari
+        Notifikasi::kirim(
+            $pemesanan->pencari_id,
+            'Pembayaran Diverifikasi',
+            "Pembayaran Anda untuk {$pemesanan->kos->nama_kos} telah diverifikasi. Pemesanan sekarang aktif!",
+            'success',
+            route('pencari.pemesanan.show', $pemesanan->id)
+        );
 
         return back()->with('success', 'Pembayaran berhasil diverifikasi! Pemesanan sekarang aktif.');
     }
@@ -183,6 +211,15 @@ class PemesananController extends Controller
         $pemesanan->update([
             'status' => 'disetujui',
         ]);
+
+        // Kirim notifikasi ke pencari
+        Notifikasi::kirim(
+            $pemesanan->pencari_id,
+            'Pembayaran Ditolak',
+            "Pembayaran Anda untuk {$pemesanan->kos->nama_kos} ditolak. Alasan: {$request->alasan_penolakan}. Silakan upload ulang bukti pembayaran.",
+            'warning',
+            route('pencari.pemesanan.show', $pemesanan->id)
+        );
 
         return back()->with('success', 'Pembayaran ditolak. Pencari harus upload ulang bukti pembayaran yang benar.');
     }

@@ -9,6 +9,7 @@ use App\Http\Controllers\PencariKos\HomeController;
 use App\Http\Controllers\Admin\ManajemenPemesananController;
 use App\Http\Controllers\PencariKos\ProfilController;
 use App\Http\Controllers\PencariKos\UlasanController;
+use App\Http\Controllers\NotifikasiController;
 
 // Public Routes
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -24,6 +25,14 @@ Route::middleware('guest')->group(function () {
 });
 
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout')->middleware('auth');
+
+// Notifikasi Routes (untuk semua user yang login)
+Route::middleware('auth')->prefix('notifikasi')->name('notifikasi.')->group(function () {
+    Route::get('/', [NotifikasiController::class, 'index'])->name('index');
+    Route::post('/{id}/read', [NotifikasiController::class, 'markAsRead'])->name('read');
+    Route::post('/read-all', [NotifikasiController::class, 'markAllAsRead'])->name('read-all');
+    Route::get('/unread-count', [NotifikasiController::class, 'getUnreadCount'])->name('unread-count');
+});
 
 // Admin Routes
 Route::middleware(['auth', App\Http\Middleware\RoleMiddleware::class.':admin'])->prefix('admin')->name('admin.')->group(function () {

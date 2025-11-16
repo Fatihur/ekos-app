@@ -145,8 +145,22 @@
                         <a href="{{ route('pencari.bookmark.index') }}" class="nav-item nav-link {{ request()->routeIs('pencari.bookmark.*') ? 'active' : '' }}">
                             <i class="fa fa-heart me-2"></i>Favorit
                         </a>
-                        
+                        <a href="{{ route('pencari.profil.index') }}" class="nav-item nav-link {{ request()->routeIs('pencari.profil.*') ? 'active' : '' }}">
+                            <i class="fa fa-user me-2"></i>Profil
+                        </a>
                     @endif
+                    
+                    <!-- Notifikasi untuk semua role -->
+                    <a href="{{ route('notifikasi.index') }}" class="nav-item nav-link {{ request()->routeIs('notifikasi.*') ? 'active' : '' }}">
+                        <i class="fa fa-bell me-2"></i>Notifikasi
+                        @php
+                            $unreadCount = auth()->user()->notifikasiBelumDibaca()->count();
+                        @endphp
+                        @if($unreadCount > 0)
+                            <span class="badge bg-danger ms-1">{{ $unreadCount }}</span>
+                        @endif
+                    </a>
+                </div>
                 </div>
             </nav>
         </div>
@@ -160,6 +174,60 @@
                     <i class="fa fa-bars"></i>
                 </a>
                 <div class="navbar-nav align-items-center ms-auto">
+                    <!-- Notifikasi Dropdown -->
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                            <i class="fa fa-bell me-lg-2"></i>
+                            @php
+                                $unreadCount = auth()->user()->notifikasiBelumDibaca()->count();
+                            @endphp
+                            @if($unreadCount > 0)
+                                <span class="badge bg-danger">{{ $unreadCount > 9 ? '9+' : $unreadCount }}</span>
+                            @endif
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0" style="min-width: 350px; max-height: 400px; overflow-y: auto;">
+                            <div class="d-flex justify-content-between align-items-center px-3 py-2 border-bottom">
+                                <h6 class="mb-0">Notifikasi</h6>
+                                @if($unreadCount > 0)
+                                    <form action="{{ route('notifikasi.read-all') }}" method="POST" class="d-inline">
+                                        @csrf
+                                        <button type="submit" class="btn btn-sm btn-link text-decoration-none p-0">
+                                            Tandai semua dibaca
+                                        </button>
+                                    </form>
+                                @endif
+                            </div>
+                            @forelse(auth()->user()->notifikasi()->latest()->limit(5)->get() as $notif)
+                                <a href="{{ $notif->link ?? route('notifikasi.index') }}" 
+                                   class="dropdown-item {{ $notif->dibaca ? '' : 'bg-light' }}"
+                                   onclick="event.preventDefault(); document.getElementById('notif-form-{{ $notif->id }}').submit();">
+                                    <div class="d-flex align-items-start">
+                                        <div class="flex-grow-1">
+                                            <strong class="d-block">{{ $notif->judul }}</strong>
+                                            <small class="text-muted">{{ Str::limit($notif->pesan, 50) }}</small>
+                                            <br>
+                                            <small class="text-muted">{{ $notif->created_at->diffForHumans() }}</small>
+                                        </div>
+                                        @if(!$notif->dibaca)
+                                            <span class="badge bg-primary ms-2">Baru</span>
+                                        @endif
+                                    </div>
+                                </a>
+                                <form id="notif-form-{{ $notif->id }}" action="{{ route('notifikasi.read', $notif->id) }}" method="POST" class="d-none">
+                                    @csrf
+                                </form>
+                            @empty
+                                <div class="dropdown-item text-center text-muted py-3">
+                                    Tidak ada notifikasi
+                                </div>
+                            @endforelse
+                            <a href="{{ route('notifikasi.index') }}" class="dropdown-item text-center border-top">
+                                Lihat Semua Notifikasi
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- User Dropdown -->
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
                             @if(auth()->user()->foto_profil)
@@ -170,8 +238,11 @@
                             <span class="d-none d-lg-inline-flex">{{ auth()->user()->nama }}</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                            <a href="#" class="dropdown-item">Profil Saya</a>
-                            <a href="#" class="dropdown-item">Pengaturan</a>
+                            @if(auth()->user()->isPencariKos())
+                                <a href="{{ route('pencari.profil.index') }}" class="dropdown-item">Profil Saya</a>
+                            @elseif(auth()->user()->isPemilikKos())
+                                <a href="{{ route('pemilik.pengaturan.index') }}" class="dropdown-item">Pengaturan</a>
+                            @endif
                             <form method="POST" action="{{ route('logout') }}" class="d-inline">
                                 @csrf
                                 <button type="submit" class="dropdown-item">Keluar</button>

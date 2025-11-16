@@ -64,6 +64,16 @@ class Pengguna extends Authenticatable
         return $this->hasMany(Bookmark::class, 'pengguna_id');
     }
 
+    public function notifikasi()
+    {
+        return $this->hasMany(Notifikasi::class, 'pengguna_id');
+    }
+
+    public function notifikasiBelumDibaca()
+    {
+        return $this->hasMany(Notifikasi::class, 'pengguna_id')->where('dibaca', false);
+    }
+
     public function isAdmin()
     {
         return $this->peran === 'admin';

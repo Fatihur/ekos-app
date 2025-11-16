@@ -70,6 +70,15 @@ class PemesananController extends Controller
             'catatan' => $request->catatan,
         ]);
 
+        // Kirim notifikasi ke pemilik kos
+        \App\Models\Notifikasi::kirim(
+            $kos->pemilik_id,
+            'Pemesanan Baru',
+            "Anda mendapat pemesanan baru untuk {$kos->nama_kos} dari " . Auth::user()->nama,
+            'info',
+            route('pemilik.pemesanan.show', $pemesanan->id)
+        );
+
         return redirect()->route('pencari.pemesanan.show', $pemesanan->id)
             ->with('success', 'Pemesanan berhasil dikirim! Menunggu persetujuan pemilik kos.');
     }
@@ -112,6 +121,15 @@ class PemesananController extends Controller
             'status' => 'dibayar',
             'tanggal_dibayar' => now(),
         ]);
+
+        // Kirim notifikasi ke pemilik kos
+        \App\Models\Notifikasi::kirim(
+            $pemesanan->kos->pemilik_id,
+            'Bukti Pembayaran Diterima',
+            "Bukti pembayaran untuk pemesanan {$pemesanan->kode_pemesanan} telah diupload. Silakan verifikasi.",
+            'info',
+            route('pemilik.pemesanan.show', $pemesanan->id)
+        );
 
         return back()->with('success', 'Bukti pembayaran berhasil diupload. Menunggu verifikasi pemilik.');
     }
