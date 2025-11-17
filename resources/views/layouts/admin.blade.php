@@ -29,6 +29,264 @@
     <!-- Template Stylesheet -->
     <link href="{{ asset('template-admin/css/style.css') }}" rel="stylesheet">
 
+    <!-- Custom Responsive Styles -->
+    <style>
+        /* ========== GLOBAL RESPONSIVE UTILITIES ========== */
+        
+        /* Responsive Container */
+        @media (max-width: 576px) {
+            .container, .container-fluid {
+                padding-left: 12px;
+                padding-right: 12px;
+            }
+        }
+
+        /* Responsive Tables */
+        @media (max-width: 768px) {
+            .table-responsive {
+                display: block;
+                width: 100%;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+            
+            .table {
+                font-size: 0.85rem;
+            }
+            
+            .table th, .table td {
+                padding: 0.5rem;
+                white-space: nowrap;
+            }
+        }
+
+        /* Responsive Cards */
+        .card {
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1) !important;
+        }
+
+        @media (max-width: 768px) {
+            .card-body {
+                padding: 1rem;
+            }
+            
+            .card-body h4, .card-body h5, .card-body h6 {
+                font-size: 1rem;
+            }
+            
+            .card-body p {
+                font-size: 0.9rem;
+            }
+        }
+
+        /* Responsive Buttons */
+        @media (max-width: 576px) {
+            .btn {
+                padding: 0.5rem 0.75rem;
+                font-size: 0.875rem;
+            }
+            
+            .btn-group {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 0.25rem;
+            }
+        }
+
+        /* Responsive Forms */
+        @media (max-width: 768px) {
+            .form-label {
+                font-size: 0.9rem;
+            }
+            
+            .form-control, .form-select {
+                font-size: 0.9rem;
+            }
+        }
+
+        /* Responsive Images */
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* Responsive Text */
+        @media (max-width: 768px) {
+            h1, .h1 { font-size: 1.75rem; }
+            h2, .h2 { font-size: 1.5rem; }
+            h3, .h3 { font-size: 1.25rem; }
+            h4, .h4 { font-size: 1.1rem; }
+            h5, .h5 { font-size: 1rem; }
+            h6, .h6 { font-size: 0.9rem; }
+        }
+
+        /* Responsive Spacing */
+        @media (max-width: 576px) {
+            .py-5 { padding-top: 2rem !important; padding-bottom: 2rem !important; }
+            .my-5 { margin-top: 2rem !important; margin-bottom: 2rem !important; }
+            .py-4 { padding-top: 1.5rem !important; padding-bottom: 1.5rem !important; }
+            .my-4 { margin-top: 1.5rem !important; margin-bottom: 1.5rem !important; }
+        }
+
+        /* ========== NOTIFIKASI RESPONSIVE ========== */
+        
+        @media (max-width: 576px) {
+            .dropdown-menu {
+                width: 100vw !important;
+                max-width: 100vw !important;
+                left: 50% !important;
+                right: auto !important;
+                transform: translateX(-50%) !important;
+                margin: 0 !important;
+                border-radius: 0 !important;
+            }
+        }
+
+        .dropdown-item {
+            transition: all 0.3s ease;
+        }
+
+        .dropdown-item:hover {
+            background-color: #f8f9fa !important;
+            transform: translateX(5px);
+        }
+
+        /* Badge animation */
+        .badge {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        /* Sticky header in dropdown */
+        .dropdown-menu .sticky-top {
+            position: sticky;
+            top: 0;
+            z-index: 1020;
+        }
+
+        /* Custom scrollbar */
+        .dropdown-menu::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .dropdown-menu::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        .dropdown-menu::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 3px;
+        }
+
+        .dropdown-menu::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+
+        /* ========== SIDEBAR RESPONSIVE ========== */
+        
+        @media (max-width: 991px) {
+            .sidebar {
+                margin-left: -250px;
+            }
+            
+            .sidebar.open {
+                margin-left: 0;
+            }
+            
+            .content {
+                margin-left: 0 !important;
+                width: 100% !important;
+            }
+        }
+
+        /* ========== DASHBOARD STATS RESPONSIVE ========== */
+        
+        @media (max-width: 576px) {
+            .bg-light.rounded.d-flex {
+                flex-direction: column !important;
+                text-align: center !important;
+            }
+            
+            .bg-light.rounded.d-flex i {
+                margin-bottom: 0.5rem;
+            }
+        }
+
+        /* ========== MODAL RESPONSIVE ========== */
+        
+        @media (max-width: 576px) {
+            .modal-dialog {
+                margin: 0.5rem;
+                max-width: calc(100% - 1rem);
+            }
+            
+            .modal-body {
+                padding: 1rem;
+            }
+        }
+
+        /* ========== PAGINATION RESPONSIVE ========== */
+        
+        @media (max-width: 576px) {
+            .pagination {
+                font-size: 0.875rem;
+            }
+            
+            .page-link {
+                padding: 0.375rem 0.75rem;
+            }
+        }
+
+        /* ========== UTILITY CLASSES ========== */
+        
+        .text-truncate-2 {
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .text-truncate-3 {
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        /* Hide on mobile */
+        @media (max-width: 768px) {
+            .hide-mobile {
+                display: none !important;
+            }
+        }
+
+        /* Show only on mobile */
+        .show-mobile {
+            display: none !important;
+        }
+
+        @media (max-width: 768px) {
+            .show-mobile {
+                display: block !important;
+            }
+        }
+
+        /* Responsive overflow */
+        .overflow-auto-mobile {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+    </style>
+
     <style>
         /* Custom CKEditor Content Styling */
         .ck-content {
@@ -175,58 +433,7 @@
                 </a>
                 <div class="navbar-nav align-items-center ms-auto">
                     <!-- Notifikasi Dropdown -->
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <i class="fa fa-bell me-lg-2"></i>
-                            @php
-                                $unreadCount = auth()->user()->notifikasiBelumDibaca()->count();
-                            @endphp
-                            @if($unreadCount > 0)
-                                <span class="badge bg-danger">{{ $unreadCount > 9 ? '9+' : $unreadCount }}</span>
-                            @endif
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0" style="min-width: 350px; max-height: 400px; overflow-y: auto;">
-                            <div class="d-flex justify-content-between align-items-center px-3 py-2 border-bottom">
-                                <h6 class="mb-0">Notifikasi</h6>
-                                @if($unreadCount > 0)
-                                    <form action="{{ route('notifikasi.read-all') }}" method="POST" class="d-inline">
-                                        @csrf
-                                        <button type="submit" class="btn btn-sm btn-link text-decoration-none p-0">
-                                            Tandai semua dibaca
-                                        </button>
-                                    </form>
-                                @endif
-                            </div>
-                            @forelse(auth()->user()->notifikasi()->latest()->limit(5)->get() as $notif)
-                                <a href="{{ $notif->link ?? route('notifikasi.index') }}" 
-                                   class="dropdown-item {{ $notif->dibaca ? '' : 'bg-light' }}"
-                                   onclick="event.preventDefault(); document.getElementById('notif-form-{{ $notif->id }}').submit();">
-                                    <div class="d-flex align-items-start">
-                                        <div class="flex-grow-1">
-                                            <strong class="d-block">{{ $notif->judul }}</strong>
-                                            <small class="text-muted">{{ Str::limit($notif->pesan, 50) }}</small>
-                                            <br>
-                                            <small class="text-muted">{{ $notif->created_at->diffForHumans() }}</small>
-                                        </div>
-                                        @if(!$notif->dibaca)
-                                            <span class="badge bg-primary ms-2">Baru</span>
-                                        @endif
-                                    </div>
-                                </a>
-                                <form id="notif-form-{{ $notif->id }}" action="{{ route('notifikasi.read', $notif->id) }}" method="POST" class="d-none">
-                                    @csrf
-                                </form>
-                            @empty
-                                <div class="dropdown-item text-center text-muted py-3">
-                                    Tidak ada notifikasi
-                                </div>
-                            @endforelse
-                            <a href="{{ route('notifikasi.index') }}" class="dropdown-item text-center border-top">
-                                Lihat Semua Notifikasi
-                            </a>
-                        </div>
-                    </div>
-
+                   
                     <!-- User Dropdown -->
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
@@ -310,6 +517,38 @@
 
     <!-- CKEditor 4 LTS (Latest Secure Version) -->
     <script src="https://cdn.ckeditor.com/4.25.1-lts/standard/ckeditor.js"></script>
+
+    <!-- Notifikasi Auto-Refresh Script -->
+    <script>
+        // Auto-refresh notifikasi count setiap 30 detik
+        function updateNotificationCount() {
+            fetch('{{ route("notifikasi.unread-count") }}')
+                .then(response => response.json())
+                .then(data => {
+                    const badges = document.querySelectorAll('.nav-link .badge');
+                    badges.forEach(badge => {
+                        if (data.count > 0) {
+                            badge.textContent = data.count > 9 ? '9+' : data.count;
+                            badge.style.display = 'inline-block';
+                        } else {
+                            badge.style.display = 'none';
+                        }
+                    });
+                })
+                .catch(error => console.log('Error updating notification count:', error));
+        }
+
+        // Update setiap 30 detik
+        setInterval(updateNotificationCount, 30000);
+
+        // Smooth scroll untuk dropdown notifikasi
+        document.addEventListener('DOMContentLoaded', function() {
+            const dropdownMenus = document.querySelectorAll('.dropdown-menu');
+            dropdownMenus.forEach(menu => {
+                menu.style.scrollBehavior = 'smooth';
+            });
+        });
+    </script>
 
     @stack('scripts')
 </body>

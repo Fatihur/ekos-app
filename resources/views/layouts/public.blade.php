@@ -29,27 +29,224 @@
     <!-- Template Stylesheet -->
     <link href="{{ asset('landing-page/css/style.css') }}" rel="stylesheet">
 
-    <!-- Custom Styles -->
+    <!-- Custom Responsive Styles -->
     <style>
+        /* ========== GLOBAL RESPONSIVE UTILITIES ========== */
+        
+        /* Responsive Container */
+        @media (max-width: 576px) {
+            .container, .container-xxl {
+                padding-left: 15px;
+                padding-right: 15px;
+            }
+        }
+
+        /* Responsive Cards */
+        .service-item, .property-item {
+            transition: all 0.3s ease;
+        }
+
+        .service-item:hover, .property-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1) !important;
+        }
+
+        /* Responsive Images */
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* Responsive Text */
+        @media (max-width: 768px) {
+            .display-1 { font-size: 2.5rem; }
+            .display-2 { font-size: 2.25rem; }
+            .display-3 { font-size: 2rem; }
+            .display-4 { font-size: 1.75rem; }
+            .display-5 { font-size: 1.5rem; }
+            .display-6 { font-size: 1.25rem; }
+            
+            h1 { font-size: 1.75rem; }
+            h2 { font-size: 1.5rem; }
+            h3 { font-size: 1.25rem; }
+            h4 { font-size: 1.1rem; }
+            h5 { font-size: 1rem; }
+        }
+
+        /* Responsive Spacing */
+        @media (max-width: 576px) {
+            .py-5 { padding-top: 2.5rem !important; padding-bottom: 2.5rem !important; }
+            .my-5 { margin-top: 2.5rem !important; margin-bottom: 2.5rem !important; }
+        }
+
+        /* Responsive Buttons */
+        @media (max-width: 576px) {
+            .btn {
+                padding: 0.5rem 1rem;
+                font-size: 0.9rem;
+            }
+            
+            .btn-lg {
+                padding: 0.75rem 1.5rem;
+            }
+        }
+
+        /* Responsive Hero Section */
+        @media (max-width: 768px) {
+            .hero-header {
+                min-height: 400px !important;
+            }
+            
+            .hero-header h1 {
+                font-size: 2rem !important;
+            }
+            
+            .hero-header p {
+                font-size: 1rem !important;
+            }
+        }
+
+        /* Responsive Search Bar */
+        @media (max-width: 576px) {
+            .input-group .form-control {
+                font-size: 0.9rem;
+            }
+            
+            .input-group .btn {
+                padding: 0.5rem 1rem;
+                font-size: 0.85rem;
+            }
+        }
+
+        /* Responsive Grid */
+        @media (max-width: 768px) {
+            .row.g-4 {
+                --bs-gutter-x: 1rem;
+                --bs-gutter-y: 1rem;
+            }
+            
+            .row.g-5 {
+                --bs-gutter-x: 1.5rem;
+                --bs-gutter-y: 1.5rem;
+            }
+        }
+
+        /* Responsive Modal */
+        @media (max-width: 576px) {
+            .modal-dialog {
+                margin: 0.5rem;
+                max-width: calc(100% - 1rem);
+            }
+        }
+
+        /* Responsive Tables */
+        @media (max-width: 768px) {
+            .table {
+                font-size: 0.85rem;
+            }
+            
+            .table th, .table td {
+                padding: 0.5rem;
+            }
+        }
+
+        /* Rating Input Responsive */
         .rating-input {
             display: flex;
             flex-direction: row-reverse;
             justify-content: flex-end;
             gap: 5px;
         }
+        
         .rating-input input[type="radio"] {
             display: none;
         }
+        
         .rating-input label {
             cursor: pointer;
             font-size: 24px;
             color: #ddd;
             transition: color 0.2s;
         }
+        
+        @media (max-width: 576px) {
+            .rating-input label {
+                font-size: 20px;
+            }
+        }
+        
         .rating-input label:hover,
         .rating-input label:hover ~ label,
         .rating-input input[type="radio"]:checked ~ label {
             color: #ffc107;
+        }
+
+        /* Responsive Navbar */
+        @media (max-width: 991px) {
+            .navbar-nav {
+                padding: 1rem 0;
+            }
+            
+            .navbar-nav .nav-link {
+                padding: 0.5rem 1rem;
+            }
+        }
+
+        /* Responsive Stats Cards */
+        @media (max-width: 576px) {
+            .bg-light.rounded.text-center {
+                padding: 1.5rem 1rem !important;
+            }
+            
+            .bg-light.rounded.text-center i {
+                font-size: 2rem !important;
+            }
+            
+            .bg-light.rounded.text-center h2 {
+                font-size: 1.5rem !important;
+            }
+        }
+
+        /* Responsive Feature Cards */
+        @media (max-width: 768px) {
+            .bg-white.rounded.p-4 {
+                padding: 1.5rem !important;
+            }
+            
+            .btn-square {
+                width: 50px !important;
+                height: 50px !important;
+            }
+            
+            .btn-square i {
+                font-size: 1.5rem !important;
+            }
+        }
+
+        /* Utility Classes */
+        .text-truncate-2 {
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .text-truncate-3 {
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        /* Hide/Show on Mobile */
+        @media (max-width: 768px) {
+            .hide-mobile { display: none !important; }
+        }
+
+        .show-mobile { display: none !important; }
+        
+        @media (max-width: 768px) {
+            .show-mobile { display: block !important; }
         }
     </style>
 

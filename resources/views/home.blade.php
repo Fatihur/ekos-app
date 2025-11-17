@@ -4,33 +4,33 @@
 
 @section('content')
 <!-- Hero Start -->
-<div class="container-fluid p-0 mb-5 wow fadeIn hero-section" data-wow-delay="0.1s">
-    <div class="position-relative hero-wrapper" style="min-height: 500px;">
+<div class="container-fluid p-0 mb-5 wow fadeIn" data-wow-delay="0.1s">
+    <div class="position-relative" style="min-height: 500px;">
         <!-- Background Image with Overlay -->
-        <div class="position-absolute w-100 h-100 hero-bg" 
+        <div class="position-absolute w-100 h-100" 
              style="background: linear-gradient(rgba(0, 185, 142, 0.8), rgba(0, 185, 142, 0.8)), 
-                    url('{{ asset('landing-page/img/carousel-1.jpg') }}') center center no-repeat; 
+                    url('{{ asset('landing-page/img/kos.jpg') }}') center center no-repeat; 
                     background-size: cover;">
         </div>
         
         <!-- Hero Content -->
-        <div class="container position-relative hero-content" style="padding: 100px 0;">
+        <div class="container position-relative" style="padding: 100px 0;">
             <div class="row justify-content-center">
-                <div class="col-lg-10 col-md-11 text-center px-3">
-                    <h1 class="display-3 text-white mb-4 animated slideInDown hero-title">
+                <div class="col-lg-10 text-center">
+                    <h1 class="display-3 text-white mb-4 animated slideInDown">
                         Temukan Kos Impian Anda di Batu Alang
                     </h1>
-                    <p class="fs-5 text-white mb-5 animated slideInDown hero-subtitle">
+                    <p class="fs-5 text-white mb-5 animated slideInDown">
                         Platform terpercaya untuk mencari dan mengelola kos di Batu Alang dengan mudah dan aman
                     </p>
                     
                     <!-- Search Form -->
-                    <form action="{{ route('pencarian') }}" method="GET" class="animated slideInUp hero-search">
+                    <form action="{{ route('pencarian') }}" method="GET" class="animated slideInUp">
                         <div class="row g-3 justify-content-center">
-                            <div class="col-lg-8 col-md-10 col-12">
-                                <div class="bg-white rounded-pill p-2 shadow-lg search-box">
+                            <div class="col-lg-8">
+                                <div class="bg-white rounded-pill p-2 shadow-lg">
                                     <div class="input-group">
-                                        <span class="input-group-text bg-transparent border-0 ps-3 ps-md-4">
+                                        <span class="input-group-text bg-transparent border-0 ps-4">
                                             <i class="fa fa-search text-primary"></i>
                                         </span>
                                         <input class="form-control border-0 rounded-pill" 
@@ -39,10 +39,9 @@
                                                placeholder="Cari berdasarkan nama kos atau lokasi..." 
                                                style="height: 50px;">
                                         <button type="submit" 
-                                                class="btn btn-primary rounded-pill px-3 px-md-4 me-1 search-btn" 
+                                                class="btn btn-primary rounded-pill px-4 me-1" 
                                                 style="height: 50px;">
-                                            <span class="d-none d-sm-inline">Cari Sekarang</span>
-                                            <span class="d-inline d-sm-none">Cari</span>
+                                            Cari Sekarang
                                         </button>
                                     </div>
                                 </div>
@@ -50,23 +49,23 @@
                         </div>
                         
                         <!-- Quick Filters -->
-                        <div class="row g-2 justify-content-center mt-3 quick-filters">
+                        <div class="row g-2 justify-content-center mt-3">
                             <div class="col-auto">
                                 <a href="{{ route('pencarian', ['jenis_kos' => 'putra']) }}" 
-                                   class="btn btn-light btn-sm rounded-pill px-2 px-md-3">
-                                    <i class="fa fa-male me-1"></i> <span class="d-none d-sm-inline">Kos</span> Putra
+                                   class="btn btn-light btn-sm rounded-pill px-3">
+                                    <i class="fa fa-male me-1"></i> Kos Putra
                                 </a>
                             </div>
                             <div class="col-auto">
                                 <a href="{{ route('pencarian', ['jenis_kos' => 'putri']) }}" 
-                                   class="btn btn-light btn-sm rounded-pill px-2 px-md-3">
-                                    <i class="fa fa-female me-1"></i> <span class="d-none d-sm-inline">Kos</span> Putri
+                                   class="btn btn-light btn-sm rounded-pill px-3">
+                                    <i class="fa fa-female me-1"></i> Kos Putri
                                 </a>
                             </div>
                             <div class="col-auto">
                                 <a href="{{ route('pencarian', ['jenis_kos' => 'campur']) }}" 
-                                   class="btn btn-light btn-sm rounded-pill px-2 px-md-3">
-                                    <i class="fa fa-users me-1"></i> <span class="d-none d-sm-inline">Kos</span> Campur
+                                   class="btn btn-light btn-sm rounded-pill px-3">
+                                    <i class="fa fa-users me-1"></i> Kos Campur
                                 </a>
                             </div>
                         </div>
