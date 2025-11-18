@@ -147,6 +147,34 @@
         @if($pemesanan->status == 'disetujui')
             <div class="bg-light rounded p-4">
                 <h6 class="mb-3 border-bottom pb-2">Upload Bukti Pembayaran</h6>
+                
+                <!-- Informasi Rekening -->
+                <div class="alert alert-info mb-4">
+                    <h6 class="mb-3"><i class="fa fa-university me-2"></i>Informasi Rekening Tujuan</h6>
+                    @if($pemesanan->kos->pemilik->nama_bank && $pemesanan->kos->pemilik->nomor_rekening)
+                        <table class="table table-sm table-borderless mb-0">
+                            <tr>
+                                <td width="40%"><strong>Bank</strong></td>
+                                <td>: {{ $pemesanan->kos->pemilik->nama_bank }}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Nomor Rekening</strong></td>
+                                <td>: <strong class="text-primary">{{ $pemesanan->kos->pemilik->nomor_rekening }}</strong></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Atas Nama</strong></td>
+                                <td>: {{ $pemesanan->kos->pemilik->nama_pemilik_rekening ?? $pemesanan->kos->pemilik->nama }}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Jumlah Transfer</strong></td>
+                                <td>: <strong class="text-danger fs-5">Rp {{ number_format($pemesanan->total_harga, 0, ',', '.') }}</strong></td>
+                            </tr>
+                        </table>
+                    @else
+                        <p class="mb-0"><i class="fa fa-exclamation-triangle me-2"></i>Informasi rekening belum tersedia. Silakan hubungi pemilik kos untuk detail pembayaran.</p>
+                    @endif
+                </div>
+                
                 <form action="{{ route('pencari.pemesanan.upload-bukti', $pemesanan->id) }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="row">

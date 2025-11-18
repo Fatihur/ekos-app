@@ -63,10 +63,15 @@
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
-                            <div class="form-floating mb-4">
+                            <div class="form-floating mb-4 position-relative">
                                 <input type="password" class="form-control @error('password') is-invalid @enderror" 
-                                       id="floatingPassword" name="password" placeholder="Password" required>
+                                       id="floatingPassword" name="password" placeholder="Password" required style="padding-right: 45px;">
                                 <label for="floatingPassword">Password</label>
+                                <button type="button" class="btn btn-link position-absolute" 
+                                        id="togglePassword" 
+                                        style="right: 10px; top: 50%; transform: translateY(-50%); z-index: 10; padding: 0; width: 30px; height: 30px;">
+                                    <i class="fas fa-eye" id="eyeIcon"></i>
+                                </button>
                                 @error('password')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
@@ -92,6 +97,24 @@
     <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Toggle password visibility
+        document.getElementById('togglePassword').addEventListener('click', function() {
+            const passwordInput = document.getElementById('floatingPassword');
+            const eyeIcon = document.getElementById('eyeIcon');
+            
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                eyeIcon.classList.remove('fa-eye');
+                eyeIcon.classList.add('fa-eye-slash');
+            } else {
+                passwordInput.type = 'password';
+                eyeIcon.classList.remove('fa-eye-slash');
+                eyeIcon.classList.add('fa-eye');
+            }
+        });
+    </script>
 </body>
 
 </html>
