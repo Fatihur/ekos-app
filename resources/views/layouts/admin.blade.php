@@ -408,7 +408,7 @@
                         </a>
                     @endif
                     
-                    <!-- Notifikasi untuk semua role -->
+                    {{-- <!-- Notifikasi untuk semua role -->
                     <a href="{{ route('notifikasi.index') }}" class="nav-item nav-link {{ request()->routeIs('notifikasi.*') ? 'active' : '' }}">
                         <i class="fa fa-bell me-2"></i>Notifikasi
                         @php
@@ -417,7 +417,7 @@
                         @if($unreadCount > 0)
                             <span class="badge bg-danger ms-1">{{ $unreadCount }}</span>
                         @endif
-                    </a>
+                    </a> --}}
                 </div>
                 </div>
             </nav>
