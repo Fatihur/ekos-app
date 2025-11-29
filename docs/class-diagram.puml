@@ -1,0 +1,243 @@
+@startuml E-Kos Class Diagram
+
+' Styling
+skinparam classAttributeIconSize 0
+skinparam class {
+    BackgroundColor<<Entity>> LightBlue
+    BackgroundColor<<Enum>> LightYellow
+    BorderColor Black
+    ArrowColor Black
+}
+
+' Enums
+enum Peran <<Enum>> {
+    admin
+    pemilik_kos
+    pencari_kos
+}
+
+enum StatusPemesanan <<Enum>> {
+    pending
+    disetujui
+    dibayar
+    aktif
+    selesai
+    ditolak
+    dibatalkan
+}
+
+enum StatusPembayaran <<Enum>> {
+    pending
+    berhasil
+    gagal
+}
+
+enum JenisKos <<Enum>> {
+    putra
+    putri
+    campur
+}
+
+enum TipeNotifikasi <<Enum>> {
+    info
+    success
+    warning
+    danger
+}
+
+' Main Classes
+class Pengguna <<Entity>> {
+    - id: bigint
+    - nama: string
+    - email: string
+    - telepon: string
+    - password: string
+    - peran: Peran
+    - foto_profil: string
+    - alamat: text
+    - nomor_rekening: string
+    - nama_bank: string
+    - nama_pemilik_rekening: string
+    - whatsapp: string
+    - aktif: boolean
+    - email_verified_at: timestamp
+    - remember_token: string
+    - created_at: timestamp
+    - updated_at: timestamp
+    - deleted_at: timestamp
+    --
+    + kos(): HasMany
+    + pemesanan(): HasMany
+    + ulasan(): HasMany
+    + bookmark(): HasMany
+    + notifikasi(): HasMany
+    + notifikasiBelumDibaca(): HasMany
+    + isAdmin(): boolean
+    + isPemilikKos(): boolean
+    + isPencariKos(): boolean
+}
+
+class Kos <<Entity>> {
+    - id: bigint
+    - pemilik_id: bigint
+    - nama_kos: string
+    - deskripsi: text
+    - jenis_kos: JenisKos
+    - jenis_kamar: string
+    - harga: decimal
+    - jumlah_kamar: integer
+    - kamar_tersedia: integer
+    - alamat: text
+    - google_maps_link: string
+    - kota: string
+    - provinsi: string
+    - kode_pos: string
+    - latitude: decimal
+    - longitude: decimal
+    - peraturan: text
+    - foto_utama: string
+    - aktif: boolean
+    - created_at: timestamp
+    - updated_at: timestamp
+    - deleted_at: timestamp
+    --
+    + pemilik(): BelongsTo
+    + fasilitas(): BelongsToMany
+    + foto(): HasMany
+    + pemesanan(): HasMany
+    + ulasan(): HasMany
+    + bookmark(): HasMany
+    + getRatingRataRataAttribute(): float
+    + getJumlahUlasanAttribute(): int
+}
+
+class Pemesanan <<Entity>> {
+    - id: bigint
+    - kos_id: bigint
+    - pencari_id: bigint
+    - kode_pemesanan: string
+    - tanggal_masuk: date
+    - durasi_sewa: integer
+    - satuan_durasi: string
+    - total_harga: decimal
+    - status: StatusPemesanan
+    - catatan: text
+    - alasan_penolakan: text
+    - tanggal_disetujui: timestamp
+    - tanggal_dibayar: timestamp
+    - created_at: timestamp
+    - updated_at: timestamp
+    - deleted_at: timestamp
+    --
+    + kos(): BelongsTo
+    + pencari(): BelongsTo
+    + pengguna(): BelongsTo
+    + pembayaran(): HasMany
+    + ulasan(): HasOne
+}
+
+class Pembayaran <<Entity>> {
+    - id: bigint
+    - pemesanan_id: bigint
+    - jumlah: decimal
+    - bukti_pembayaran: string
+    - status: StatusPembayaran
+    - catatan: text
+    - tanggal_verifikasi: timestamp
+    - created_at: timestamp
+    - updated_at: timestamp
+    --
+    + pemesanan(): BelongsTo
+}
+
+class Ulasan <<Entity>> {
+    - id: bigint
+    - kos_id: bigint
+    - pengguna_id: bigint
+    - pemesanan_id: bigint
+    - rating: integer
+    - komentar: text
+    - disetujui: boolean
+    - created_at: timestamp
+    - updated_at: timestamp
+    - deleted_at: timestamp
+    --
+    + kos(): BelongsTo
+    + pengguna(): BelongsTo
+    + pemesanan(): BelongsTo
+}
+
+class Bookmark <<Entity>> {
+    - id: bigint
+    - pengguna_id: bigint
+    - kos_id: bigint
+    - created_at: timestamp
+    - updated_at: timestamp
+    --
+    + pengguna(): BelongsTo
+    + kos(): BelongsTo
+}
+
+class Fasilitas <<Entity>> {
+    - id: bigint
+    - nama_fasilitas: string
+    - ikon: string
+    - created_at: timestamp
+    - updated_at: timestamp
+    --
+    + kos(): BelongsToMany
+}
+
+class FotoKos <<Entity>> {
+    - id: bigint
+    - kos_id: bigint
+    - foto: string
+    - is_utama: boolean
+    - urutan: integer
+    - created_at: timestamp
+    - updated_at: timestamp
+    --
+    + kos(): BelongsTo
+}
+
+class Notifikasi <<Entity>> {
+    - id: bigint
+    - pengguna_id: bigint
+    - judul: string
+    - pesan: text
+    - tipe: TipeNotifikasi
+    - link: string
+    - dibaca: boolean
+    - dibaca_pada: timestamp
+    - created_at: timestamp
+    - updated_at: timestamp
+    --
+    + pengguna(): BelongsTo
+    + markAsRead(): void
+    + {static} kirim(): Notifikasi
+}
+
+' Relationships
+Pengguna "1" -- "0..*" Kos : memiliki >
+Pengguna "1" -- "0..*" Pemesanan : membuat >
+Pengguna "1" -- "0..*" Ulasan : menulis >
+Pengguna "1" -- "0..*" Bookmark : menyimpan >
+Pengguna "1" -- "0..*" Notifikasi : menerima >
+
+Kos "1" -- "0..*" Pemesanan : dipesan >
+Kos "1" -- "0..*" Ulasan : diulas >
+Kos "1" -- "0..*" Bookmark : disimpan >
+Kos "1" -- "0..*" FotoKos : memiliki >
+Kos "0..*" -- "0..*" Fasilitas : memiliki >
+
+Pemesanan "1" -- "0..*" Pembayaran : memiliki >
+Pemesanan "1" -- "0..1" Ulasan : memiliki >
+
+' Enum Relationships
+Pengguna -- Peran
+Pemesanan -- StatusPemesanan
+Pembayaran -- StatusPembayaran
+Kos -- JenisKos
+Notifikasi -- TipeNotifikasi
+
+@enduml

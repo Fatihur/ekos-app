@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Masuk - E-Kos</title>
+    <title>Reset Password - E-Kos</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
@@ -28,7 +28,6 @@
 
 <body>
     <div class="container-xxl position-relative bg-white d-flex p-0">
-        <!-- Sign In Start -->
         <div class="container-fluid">
             <div class="row h-100 align-items-center justify-content-center" style="min-height: 100vh;">
                 <div class="col-12 col-sm-8 col-md-6 col-lg-5 col-xl-4">
@@ -37,7 +36,7 @@
                             <a href="{{ route('home') }}" class="">
                                 <h3 class="text-primary"><i class="fa fa-home me-2"></i>E-Kos</h3>
                             </a>
-                            <h3>Masuk</h3>
+                            <h3>Reset</h3>
                         </div>
 
                         @if($errors->any())
@@ -52,21 +51,32 @@
                             </div>
                         @endif
 
-                        <form method="POST" action="{{ route('login') }}">
+                        <div class="text-center mb-4">
+                            <i class="fas fa-lock fa-3x text-primary mb-3"></i>
+                            <h5>Reset Password</h5>
+                            <p class="text-muted">
+                                Masukkan password baru untuk akun Anda.
+                            </p>
+                        </div>
+
+                        <form method="POST" action="{{ route('password.update') }}">
                             @csrf
+                            <input type="hidden" name="token" value="{{ $token }}">
+                            
                             <div class="form-floating mb-3">
                                 <input type="email" class="form-control @error('email') is-invalid @enderror" 
-                                       id="floatingInput" name="email" placeholder="name@example.com" 
-                                       value="{{ old('email') }}" required autofocus>
-                                <label for="floatingInput">Alamat Email</label>
+                                       id="floatingEmail" name="email" placeholder="name@example.com" 
+                                       value="{{ $email ?? old('email') }}" required>
+                                <label for="floatingEmail">Alamat Email</label>
                                 @error('email')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
-                            <div class="form-floating mb-4 position-relative">
+                            
+                            <div class="form-floating mb-3 position-relative">
                                 <input type="password" class="form-control @error('password') is-invalid @enderror" 
                                        id="floatingPassword" name="password" placeholder="Password" required style="padding-right: 45px;">
-                                <label for="floatingPassword">Password</label>
+                                <label for="floatingPassword">Password Baru</label>
                                 <button type="button" class="btn btn-link position-absolute" 
                                         id="togglePassword" 
                                         style="right: 10px; top: 50%; transform: translateY(-50%); z-index: 10; padding: 0; width: 30px; height: 30px;">
@@ -76,22 +86,23 @@
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
-                            <div class="d-flex align-items-center justify-content-between mb-4">
-                                <div class="form-check">
-                                    <input type="checkbox" class="form-check-input" id="remember" name="remember">
-                                    <label class="form-check-label" for="remember">Ingat Saya</label>
-                                </div>
-                                <a href="{{ route('password.request') }}">Lupa Password?</a>
+                            
+                            <div class="form-floating mb-4">
+                                <input type="password" class="form-control" 
+                                       id="floatingPasswordConfirm" name="password_confirmation" 
+                                       placeholder="Konfirmasi Password" required>
+                                <label for="floatingPasswordConfirm">Konfirmasi Password</label>
                             </div>
-                            <button type="submit" class="btn btn-primary py-3 w-100 mb-4">Masuk</button>
-                            <p class="text-center mb-0">Belum punya akun? <a href="{{ route('register') }}">Daftar</a></p>
-                            <p class="text-center mt-2"><a href="{{ route('home') }}">Kembali ke Beranda</a></p>
+                            
+                            <button type="submit" class="btn btn-primary py-3 w-100 mb-4">
+                                <i class="fas fa-save me-2"></i>Reset Password
+                            </button>
+                            <p class="text-center mb-0"><a href="{{ route('login') }}">Kembali ke Login</a></p>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- Sign In End -->
     </div>
 
     <!-- JavaScript Libraries -->
@@ -99,7 +110,6 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
     
     <script>
-        // Toggle password visibility
         document.getElementById('togglePassword').addEventListener('click', function() {
             const passwordInput = document.getElementById('floatingPassword');
             const eyeIcon = document.getElementById('eyeIcon');

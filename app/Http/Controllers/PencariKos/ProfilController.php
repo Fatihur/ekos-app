@@ -23,14 +23,14 @@ class ProfilController extends Controller
         $request->validate([
             'nama' => 'required|string|max:255',
             'email' => 'required|email|unique:pengguna,email,' . $pengguna->id,
-            'no_telepon' => 'nullable|string|max:20',
+            'telepon' => 'nullable|string|max:20',
             'foto_profil' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
             'password' => 'nullable|min:8|confirmed',
         ]);
 
         $pengguna->nama = $request->nama;
         $pengguna->email = $request->email;
-        $pengguna->no_telepon = $request->no_telepon;
+        $pengguna->telepon = $request->telepon;
 
         if ($request->hasFile('foto_profil')) {
             // Hapus foto lama jika ada

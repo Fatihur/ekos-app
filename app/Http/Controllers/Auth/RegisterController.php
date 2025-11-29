@@ -7,6 +7,7 @@ use App\Models\Pengguna;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Auth\Events\Registered;
 
 class RegisterController extends Controller
 {
@@ -32,15 +33,13 @@ class RegisterController extends Controller
             'password' => Hash::make($validated['password']),
             'peran' => $validated['peran'],
             'aktif' => true,
-            'email_verified_at' => now(),
         ]);
+
+        event(new Registered($user));
 
         Auth::login($user);
 
-        if ($user->peran === 'pemilik_kos') {
-            return redirect()->route('pemilik.dashboard')->with('success', 'Registrasi berhasil! Selamat datang.');
-        } else {
-            return redirect()->route('home')->with('success', 'Registrasi berhasil! Selamat datang.');
-        }
+        return redirect()->route('verification.notice')
+            ->with('success', 'Registrasi berhasil! Silakan cek email Anda untuk verifikasi.');
     }
 }
