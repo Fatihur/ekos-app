@@ -3,51 +3,116 @@
 namespace Database\Seeders;
 
 use App\Models\Pengguna;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\PemilikKos;
+use App\Models\PencariKos;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
 class PenggunaSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
     public function run(): void
     {
-        Pengguna::create([
+        // Admin
+        $admin = Pengguna::create([
             'nama' => 'Administrator',
             'email' => 'admin@ekos.com',
-            'telepon' => '081234567890',
-            'password' => Hash::make('admin123'),
+            'password' => Hash::make('password'),
             'peran' => 'admin',
             'aktif' => true,
             'email_verified_at' => now(),
         ]);
 
-        Pengguna::create([
+        // Pemilik Kos 1
+        $pemilik1 = Pengguna::create([
             'nama' => 'Budi Santoso',
             'email' => 'budi@ekos.com',
-            'telepon' => '081234567891',
-            'password' => Hash::make('pemilik123'),
+            'password' => Hash::make('password'),
             'peran' => 'pemilik_kos',
-            'alamat' => 'Jl. Sudirman No. 123, Jakarta',
-            'nomor_rekening' => '1234567890',
-            'nama_bank' => 'BCA',
-            'nama_pemilik_rekening' => 'Budi Santoso',
-            'whatsapp' => '081234567891',
             'aktif' => true,
             'email_verified_at' => now(),
         ]);
 
-        Pengguna::create([
-            'nama' => 'Siti Nur Azizah',
+        PemilikKos::create([
+            'pengguna_id' => $pemilik1->id,
+            'nama_lengkap' => 'Budi Santoso',
+            'no_telpon' => '081234567890',
+            'alamat' => 'Jl. Merdeka No. 10, Jakarta',
+            'whatsapp' => '6281234567890',
+            'nomor_rekening' => '1234567890',
+            'nama_bank' => 'BCA',
+            'nama_pemilik_rekening' => 'Budi Santoso',
+        ]);
+
+        // Pemilik Kos 2
+        $pemilik2 = Pengguna::create([
+            'nama' => 'Siti Rahayu',
             'email' => 'siti@ekos.com',
-            'telepon' => '081234567892',
-            'password' => Hash::make('pencari123'),
-            'peran' => 'pencari_kos',
-            'alamat' => 'Jl. Gatot Subroto No. 456, Bandung',
+            'password' => Hash::make('password'),
+            'peran' => 'pemilik_kos',
             'aktif' => true,
             'email_verified_at' => now(),
+        ]);
+
+        PemilikKos::create([
+            'pengguna_id' => $pemilik2->id,
+            'nama_lengkap' => 'Siti Rahayu',
+            'no_telpon' => '082345678901',
+            'alamat' => 'Jl. Sudirman No. 25, Bandung',
+            'whatsapp' => '6282345678901',
+            'nomor_rekening' => '0987654321',
+            'nama_bank' => 'Mandiri',
+            'nama_pemilik_rekening' => 'Siti Rahayu',
+        ]);
+
+        // Pencari Kos 1
+        $pencari1 = Pengguna::create([
+            'nama' => 'Andi Pratama',
+            'email' => 'andi@ekos.com',
+            'password' => Hash::make('password'),
+            'peran' => 'pencari_kos',
+            'aktif' => true,
+            'email_verified_at' => now(),
+        ]);
+
+        PencariKos::create([
+            'pengguna_id' => $pencari1->id,
+            'nama_lengkap' => 'Andi Pratama',
+            'no_telpon' => '083456789012',
+            'alamat' => 'Jl. Pahlawan No. 5, Surabaya',
+        ]);
+
+        // Pencari Kos 2
+        $pencari2 = Pengguna::create([
+            'nama' => 'Dewi Lestari',
+            'email' => 'dewi@ekos.com',
+            'password' => Hash::make('password'),
+            'peran' => 'pencari_kos',
+            'aktif' => true,
+            'email_verified_at' => now(),
+        ]);
+
+        PencariKos::create([
+            'pengguna_id' => $pencari2->id,
+            'nama_lengkap' => 'Dewi Lestari',
+            'no_telpon' => '084567890123',
+            'alamat' => 'Jl. Diponegoro No. 15, Yogyakarta',
+        ]);
+
+        // Pencari Kos 3
+        $pencari3 = Pengguna::create([
+            'nama' => 'Rizki Hidayat',
+            'email' => 'rizki@ekos.com',
+            'password' => Hash::make('password'),
+            'peran' => 'pencari_kos',
+            'aktif' => true,
+            'email_verified_at' => now(),
+        ]);
+
+        PencariKos::create([
+            'pengguna_id' => $pencari3->id,
+            'nama_lengkap' => 'Rizki Hidayat',
+            'no_telpon' => '085678901234',
+            'alamat' => 'Jl. Ahmad Yani No. 20, Semarang',
         ]);
     }
 }

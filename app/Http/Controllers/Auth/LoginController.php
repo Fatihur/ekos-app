@@ -26,11 +26,11 @@ class LoginController extends Controller
             $user = Auth::user();
 
             if ($user->peran === 'admin') {
-                return redirect()->intended(route('admin.dashboard'));
+                return redirect()->route('admin.dashboard');
             } elseif ($user->peran === 'pemilik_kos') {
-                return redirect()->intended(route('pemilik.dashboard'));
+                return redirect()->route('pemilik.dashboard');
             } else {
-                return redirect()->intended(route('home'));
+                return redirect()->route('home');
             }
         }
 

@@ -56,6 +56,10 @@ Route::middleware('auth')->prefix('notifikasi')->name('notifikasi.')->group(func
 Route::middleware(['auth', 'verified', App\Http\Middleware\RoleMiddleware::class.':admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
     
+    // Profil Admin
+    Route::get('/profil', [App\Http\Controllers\Admin\ProfilController::class, 'index'])->name('profil.index');
+    Route::put('/profil', [App\Http\Controllers\Admin\ProfilController::class, 'update'])->name('profil.update');
+    
     // Manajemen Pengguna
     Route::resource('pengguna', App\Http\Controllers\Admin\ManajemenPenggunaController::class);
     

@@ -43,7 +43,7 @@
 
                             <div class="col-md-6 mb-3">
                                 <label class="form-label">WhatsApp</label>
-                                <input type="text" name="whatsapp" class="form-control @error('whatsapp') is-invalid @enderror" value="{{ old('whatsapp', $pengguna->whatsapp) }}" placeholder="628xxx">
+                                <input type="text" name="whatsapp" class="form-control @error('whatsapp') is-invalid @enderror" value="{{ old('whatsapp', $pengguna->pemilikKos->whatsapp ?? '') }}" placeholder="628xxx">
                                 @error('whatsapp')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
@@ -66,7 +66,7 @@
 
                         <div class="mb-3">
                             <label class="form-label">Nama Bank</label>
-                            <input type="text" name="nama_bank" class="form-control @error('nama_bank') is-invalid @enderror" value="{{ old('nama_bank', $pengguna->nama_bank) }}" placeholder="Contoh: BCA, Mandiri, BNI">
+                            <input type="text" name="nama_bank" class="form-control @error('nama_bank') is-invalid @enderror" value="{{ old('nama_bank', $pengguna->pemilikKos->nama_bank ?? '') }}" placeholder="Contoh: BCA, Mandiri, BNI">
                             @error('nama_bank')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -74,7 +74,7 @@
 
                         <div class="mb-3">
                             <label class="form-label">Nomor Rekening</label>
-                            <input type="text" name="nomor_rekening" class="form-control @error('nomor_rekening') is-invalid @enderror" value="{{ old('nomor_rekening', $pengguna->nomor_rekening) }}">
+                            <input type="text" name="nomor_rekening" class="form-control @error('nomor_rekening') is-invalid @enderror" value="{{ old('nomor_rekening', $pengguna->pemilikKos->nomor_rekening ?? '') }}">
                             @error('nomor_rekening')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -82,7 +82,7 @@
 
                         <div class="mb-3">
                             <label class="form-label">Nama Pemilik Rekening</label>
-                            <input type="text" name="nama_pemilik_rekening" class="form-control @error('nama_pemilik_rekening') is-invalid @enderror" value="{{ old('nama_pemilik_rekening', $pengguna->nama_pemilik_rekening) }}">
+                            <input type="text" name="nama_pemilik_rekening" class="form-control @error('nama_pemilik_rekening') is-invalid @enderror" value="{{ old('nama_pemilik_rekening', $pengguna->pemilikKos->nama_pemilik_rekening ?? '') }}">
                             @error('nama_pemilik_rekening')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror

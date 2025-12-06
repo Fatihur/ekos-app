@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\PencariKos;
 
 use App\Http\Controllers\Controller;
+use App\Models\PencariKos;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -28,23 +29,32 @@ class ProfilController extends Controller
             'password' => 'nullable|min:8|confirmed',
         ]);
 
+        // Update data pengguna
         $pengguna->nama = $request->nama;
         $pengguna->email = $request->email;
-        $pengguna->telepon = $request->telepon;
-
-        if ($request->hasFile('foto_profil')) {
-            // Hapus foto lama jika ada
-            if ($pengguna->foto_profil) {
-                Storage::disk('public')->delete($pengguna->foto_profil);
-            }
-            $pengguna->foto_profil = $request->file('foto_profil')->store('profil', 'public');
-        }
 
         if ($request->filled('password')) {
             $pengguna->password = Hash::make($request->password);
         }
 
         $pengguna->save();
+
+        // Update data pencari kos
+        $pencariKos = $pengguna->pencariKos ?? PencariKos::create(['pengguna_id' => $pengguna->id, 'nama_lengkap' => $request->nama]);
+
+        $dataPencari = [
+            'nama_lengkap' => $request->nama,
+            'no_telpon' => $request->telepon,
+        ];
+
+        if ($request->hasFile('foto_profil')) {
+            if ($pencariKos->foto_profil) {
+                Storage::disk('public')->delete($pencariKos->foto_profil);
+            }
+            $dataPencari['foto_profil'] = $request->file('foto_profil')->store('profil', 'public');
+        }
+
+        $pencariKos->update($dataPencari);
 
         return redirect()->route('pencari.profil.index')->with('success', 'Profil berhasil diperbarui');
     }

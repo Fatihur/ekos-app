@@ -369,13 +369,16 @@
                             <i class="fa fa-tachometer-alt me-2"></i>Dashboard
                         </a>
                         <a href="{{ route('admin.pengguna.index') }}" class="nav-item nav-link {{ request()->routeIs('admin.pengguna.*') ? 'active' : '' }}">
-                            <i class="fa fa-users me-2"></i>Manajemen Pengguna
+                            <i class="fa fa-users me-2"></i>Pengguna
                         </a>
                         <a href="{{ route('admin.kos.index') }}" class="nav-item nav-link {{ request()->routeIs('admin.kos.*') ? 'active' : '' }}">
-                            <i class="fa fa-home me-2"></i>Manajemen Kos
+                            <i class="fa fa-home me-2"></i>Kos
                         </a>
                         <a href="{{ route('admin.laporan.index') }}" class="nav-item nav-link {{ request()->routeIs('admin.laporan.*') ? 'active' : '' }}">
                             <i class="fa fa-chart-bar me-2"></i>Laporan
+                        </a>
+                        <a href="{{ route('admin.profil.index') }}" class="nav-item nav-link {{ request()->routeIs('admin.profil.*') ? 'active' : '' }}">
+                            <i class="fa fa-user me-2"></i>Profil
                         </a>
                     @elseif(auth()->user()->isPemilikKos())
                         <a href="{{ route('pemilik.dashboard') }}" class="nav-item nav-link {{ request()->routeIs('pemilik.dashboard') ? 'active' : '' }}">
@@ -408,7 +411,8 @@
                         </a>
                     @endif
                     
-                    <!-- Notifikasi untuk semua role -->
+                    <!-- Notifikasi untuk pemilik dan pencari kos -->
+                    @if(!auth()->user()->isAdmin())
                     <a href="{{ route('notifikasi.index') }}" class="nav-item nav-link {{ request()->routeIs('notifikasi.*') ? 'active' : '' }}">
                         <i class="fa fa-bell me-2"></i>Notifikasi
                         @php
@@ -418,6 +422,7 @@
                             <span class="badge bg-danger ms-1">{{ $unreadCount }}</span>
                         @endif
                     </a>
+                    @endif
                 </div>
                 </div>
             </nav>
@@ -445,7 +450,9 @@
                             <span class="d-none d-lg-inline-flex">{{ auth()->user()->nama }}</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                            @if(auth()->user()->isPencariKos())
+                            @if(auth()->user()->isAdmin())
+                                <a href="{{ route('admin.profil.index') }}" class="dropdown-item">Profil Saya</a>
+                            @elseif(auth()->user()->isPencariKos())
                                 <a href="{{ route('pencari.profil.index') }}" class="dropdown-item">Profil Saya</a>
                             @elseif(auth()->user()->isPemilikKos())
                                 <a href="{{ route('pemilik.pengaturan.index') }}" class="dropdown-item">Pengaturan</a>

@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Pengguna;
+use App\Models\PemilikKos;
+use App\Models\PencariKos;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -48,16 +50,31 @@ class ManajemenPenggunaController extends Controller
             'aktif' => 'nullable|boolean',
         ]);
 
-        Pengguna::create([
+        $pengguna = Pengguna::create([
             'nama' => $request->nama,
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'peran' => $request->peran,
-            'telepon' => $request->telepon,
-            'whatsapp' => $request->whatsapp,
-            'alamat' => $request->alamat,
             'aktif' => $request->has('aktif') ? true : false,
         ]);
+
+        // Buat record di tabel terkait
+        if ($request->peran === 'pemilik_kos') {
+            PemilikKos::create([
+                'pengguna_id' => $pengguna->id,
+                'nama_lengkap' => $request->nama,
+                'no_telpon' => $request->telepon,
+                'alamat' => $request->alamat,
+                'whatsapp' => $request->whatsapp,
+            ]);
+        } else if ($request->peran === 'pencari_kos') {
+            PencariKos::create([
+                'pengguna_id' => $pengguna->id,
+                'nama_lengkap' => $request->nama,
+                'no_telpon' => $request->telepon,
+                'alamat' => $request->alamat,
+            ]);
+        }
 
         return redirect()->route('admin.pengguna.index')->with('success', 'Pengguna berhasil ditambahkan');
     }
@@ -84,9 +101,6 @@ class ManajemenPenggunaController extends Controller
             'nama' => $request->nama,
             'email' => $request->email,
             'peran' => $request->peran,
-            'telepon' => $request->telepon,
-            'whatsapp' => $request->whatsapp,
-            'alamat' => $request->alamat,
             'aktif' => $request->has('aktif') ? true : false,
         ];
 
@@ -95,6 +109,27 @@ class ManajemenPenggunaController extends Controller
         }
 
         $pengguna->update($data);
+
+        // Update data pemilik kos jika peran adalah pemilik_kos
+        if ($request->peran === 'pemilik_kos') {
+            $pemilikKos = $pengguna->pemilikKos ?? PemilikKos::create(['pengguna_id' => $pengguna->id, 'nama_lengkap' => $request->nama]);
+            $pemilikKos->update([
+                'nama_lengkap' => $request->nama,
+                'no_telpon' => $request->telepon,
+                'alamat' => $request->alamat,
+                'whatsapp' => $request->whatsapp,
+            ]);
+        }
+
+        // Update data pencari kos jika peran adalah pencari_kos
+        if ($request->peran === 'pencari_kos') {
+            $pencariKos = $pengguna->pencariKos ?? PencariKos::create(['pengguna_id' => $pengguna->id, 'nama_lengkap' => $request->nama]);
+            $pencariKos->update([
+                'nama_lengkap' => $request->nama,
+                'no_telpon' => $request->telepon,
+                'alamat' => $request->alamat,
+            ]);
+        }
 
         return redirect()->route('admin.pengguna.index')->with('success', 'Pengguna berhasil diupdate');
     }

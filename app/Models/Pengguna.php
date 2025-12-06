@@ -19,15 +19,8 @@ class Pengguna extends Authenticatable implements MustVerifyEmail
     protected $fillable = [
         'nama',
         'email',
-        'telepon',
         'password',
         'peran',
-        'foto_profil',
-        'alamat',
-        'nomor_rekening',
-        'nama_bank',
-        'nama_pemilik_rekening',
-        'whatsapp',
         'aktif',
         'email_verified_at',
     ];
@@ -90,5 +83,60 @@ class Pengguna extends Authenticatable implements MustVerifyEmail
     public function isPencariKos()
     {
         return $this->peran === 'pencari_kos';
+    }
+
+    public function pemilikKos()
+    {
+        return $this->hasOne(PemilikKos::class, 'pengguna_id');
+    }
+
+    public function pencariKos()
+    {
+        return $this->hasOne(PencariKos::class, 'pengguna_id');
+    }
+
+    // Accessor untuk backward compatibility
+    public function getTeleponAttribute()
+    {
+        if ($this->isPemilikKos()) {
+            return $this->pemilikKos?->no_telpon;
+        }
+        return $this->pencariKos?->no_telpon;
+    }
+
+    public function getFotoProfilAttribute()
+    {
+        if ($this->isPemilikKos()) {
+            return $this->pemilikKos?->foto_profil;
+        }
+        return $this->pencariKos?->foto_profil;
+    }
+
+    public function getAlamatAttribute()
+    {
+        if ($this->isPemilikKos()) {
+            return $this->pemilikKos?->alamat;
+        }
+        return $this->pencariKos?->alamat;
+    }
+
+    public function getNomorRekeningAttribute()
+    {
+        return $this->pemilikKos?->nomor_rekening;
+    }
+
+    public function getNamaBankAttribute()
+    {
+        return $this->pemilikKos?->nama_bank;
+    }
+
+    public function getNamaPemilikRekeningAttribute()
+    {
+        return $this->pemilikKos?->nama_pemilik_rekening;
+    }
+
+    public function getWhatsappAttribute()
+    {
+        return $this->pemilikKos?->whatsapp;
     }
 }

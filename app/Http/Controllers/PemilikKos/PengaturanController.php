@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\PemilikKos;
 
 use App\Http\Controllers\Controller;
+use App\Models\PemilikKos;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -43,12 +44,25 @@ class PengaturanController extends Controller
             'password.confirmed' => 'Konfirmasi password tidak cocok',
         ]);
 
-        $data = [
+        // Update data pengguna (hanya nama dan email)
+        $pengguna->update([
             'nama' => $request->nama,
             'email' => $request->email,
-            'telepon' => $request->telepon,
-            'whatsapp' => $request->whatsapp,
+        ]);
+
+        // Update password jika diisi
+        if ($request->filled('password')) {
+            $pengguna->update(['password' => Hash::make($request->password)]);
+        }
+
+        // Update data pemilik kos
+        $pemilikKos = $pengguna->pemilikKos ?? PemilikKos::create(['pengguna_id' => $pengguna->id, 'nama_lengkap' => $request->nama]);
+        
+        $dataPemilik = [
+            'nama_lengkap' => $request->nama,
+            'no_telpon' => $request->telepon,
             'alamat' => $request->alamat,
+            'whatsapp' => $request->whatsapp,
             'nomor_rekening' => $request->nomor_rekening,
             'nama_bank' => $request->nama_bank,
             'nama_pemilik_rekening' => $request->nama_pemilik_rekening,
@@ -56,18 +70,13 @@ class PengaturanController extends Controller
 
         // Upload foto profil
         if ($request->hasFile('foto_profil')) {
-            if ($pengguna->foto_profil) {
-                Storage::disk('public')->delete($pengguna->foto_profil);
+            if ($pemilikKos->foto_profil) {
+                Storage::disk('public')->delete($pemilikKos->foto_profil);
             }
-            $data['foto_profil'] = $request->file('foto_profil')->store('profil', 'public');
+            $dataPemilik['foto_profil'] = $request->file('foto_profil')->store('profil', 'public');
         }
 
-        // Update password jika diisi
-        if ($request->filled('password')) {
-            $data['password'] = Hash::make($request->password);
-        }
-
-        $pengguna->update($data);
+        $pemilikKos->update($dataPemilik);
 
         return back()->with('success', 'Pengaturan berhasil diperbarui');
     }

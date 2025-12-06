@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\Pengguna;
+use App\Models\PemilikKos;
+use App\Models\PencariKos;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
@@ -29,11 +31,25 @@ class RegisterController extends Controller
         $user = Pengguna::create([
             'nama' => $validated['nama'],
             'email' => $validated['email'],
-            'telepon' => $validated['telepon'],
             'password' => Hash::make($validated['password']),
             'peran' => $validated['peran'],
             'aktif' => true,
         ]);
+
+        // Buat record di tabel terkait berdasarkan peran
+        if ($validated['peran'] === 'pemilik_kos') {
+            PemilikKos::create([
+                'pengguna_id' => $user->id,
+                'nama_lengkap' => $validated['nama'],
+                'no_telpon' => $validated['telepon'],
+            ]);
+        } else {
+            PencariKos::create([
+                'pengguna_id' => $user->id,
+                'nama_lengkap' => $validated['nama'],
+                'no_telpon' => $validated['telepon'],
+            ]);
+        }
 
         event(new Registered($user));
 
